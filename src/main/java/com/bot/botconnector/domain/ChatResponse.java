@@ -11,4 +11,6 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ChatResponse {
     private List<Message> replymessages;
+    private BotState botState;
+    private String intent;
 }
