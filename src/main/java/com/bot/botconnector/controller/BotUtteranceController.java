@@ -7,6 +7,7 @@ import com.bot.botconnector.domain.Message;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class BotUtteranceController {
     private static final String SUCCESS = "success";
     private static final String FALL_BACK = "fallback";
     @PostMapping("/postUtterance")
-    public ChatResponse message(@RequestBody ChatMessage chatMessage) {
+    public ChatResponse message(@RequestPart("file") ChatMessage chatMessage) {
         log.info("Post utterance with genesys-conversation-id:{},bot-session-id:{} :",chatMessage.getGenesysConversationId(),chatMessage.getBotSessionId());
         if("hi".equalsIgnoreCase(chatMessage.getInputMessage().getText())){
             return getFirstReply();
