@@ -18,9 +18,8 @@ import java.util.List;
 public class BotUtteranceController {
     private static final String SUCCESS = "success";
     private static final String FALL_BACK = "fallback";
-    @PostMapping(path = "/postUtterance",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_OCTET_STREAM_VALUE},
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public ChatResponse message(@RequestBody ChatMessage chatMessage) {
+    @PostMapping(path = "/postUtterance")
+    public ChatResponse message(@RequestPart("file") ChatMessage chatMessage) {
         log.info("Post utterance with genesys-conversation-id:{},bot-session-id:{} :",chatMessage.getGenesysConversationId(),chatMessage.getBotSessionId());
         if("hi".equalsIgnoreCase(chatMessage.getInputMessage().getText())){
             return getFirstReply();
