@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.util.List;
+import java.util.Map;
 
 @Data
 @Builder
@@ -13,4 +14,6 @@ public class ChatResponse {
     private List<Message> replymessages;
     private BotState botState;
     private String intent;
+    private Map<String,String> parameters;
+    private boolean additionalProperties;
 }

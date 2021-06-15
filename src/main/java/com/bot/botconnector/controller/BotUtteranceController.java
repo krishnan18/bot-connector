@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @Slf4j
@@ -41,6 +42,8 @@ public class BotUtteranceController {
                         .type("Text")
                         .text("Hi").build()))
                 .intent(SUCCESS)
+                .parameters(Map.of("htmlResponse","<div onclick=\\\"window.inqFrame.Application.sendVALinkClicked(event);\\\">Hi,I am virtual assistant</div>"))
+                .additionalProperties(true)
                 .botState(BotState.COMPLETE).build();
     }
     private ChatResponse getSecondReply() {
