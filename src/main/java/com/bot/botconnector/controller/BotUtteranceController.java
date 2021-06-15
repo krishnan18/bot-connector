@@ -20,7 +20,7 @@ public class BotUtteranceController {
     public ChatResponse message(@RequestPart(value = "file", required = false) ChatMessage chatMessage) {
         if(chatMessage == null) {
             log.info("chat message null:");
-            getFirstReply();
+            return getFirstReply();
         }
         log.info("Post utterance with genesys-conversation-id:{},bot-session-id:{} :",chatMessage.getGenesysConversationId(),chatMessage.getBotSessionId());
         if("hi".equalsIgnoreCase(chatMessage.getInputMessage().getText())){
