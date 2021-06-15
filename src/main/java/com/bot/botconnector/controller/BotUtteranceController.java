@@ -18,10 +18,11 @@ public class BotUtteranceController {
     private static final String FALL_BACK = "fallback";
     @PostMapping(path = "/postUtterance")
     public ChatResponse message(@RequestPart(value = "file", required = false) ChatMessage chatMessage) {
-        log.info("Post utterance with genesys-conversation-id:{},bot-session-id:{} :",chatMessage.getGenesysConversationId(),chatMessage.getBotSessionId());
         if(chatMessage == null) {
+            log.info("chat message null:");
             getFirstReply();
         }
+        log.info("Post utterance with genesys-conversation-id:{},bot-session-id:{} :",chatMessage.getGenesysConversationId(),chatMessage.getBotSessionId());
         if("hi".equalsIgnoreCase(chatMessage.getInputMessage().getText())){
             return getFirstReply();
         }
