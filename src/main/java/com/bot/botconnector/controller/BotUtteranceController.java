@@ -3,7 +3,9 @@ package com.bot.botconnector.controller;
 import com.bot.botconnector.domain.BotState;
 import com.bot.botconnector.domain.ChatMessage;
 import com.bot.botconnector.domain.ChatResponse;
+import com.bot.botconnector.domain.Content;
 import com.bot.botconnector.domain.Message;
+import com.bot.botconnector.domain.QuickReply;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -40,7 +42,13 @@ public class BotUtteranceController {
         return ChatResponse.builder()
                 .replymessages(List.of(Message.builder()
                         .type("Text")
-                        .text("Hi,I am virtual assistant").build()))
+                        .text("Hi,I am virtual assistant")
+                        .content(List.of(Content.builder()
+                                .contentType("Structured")
+                                .quickReply(QuickReply.builder()
+                                        .text("<div onclick=\\\"window.inqFrame.Application.sendVALinkClicked(event);\\\">Hi,I am virtual assistant</div>")
+                                        .build()).build()))
+                        .build()))
                 .intent(SUCCESS)
                 .parameters(Map.of("htmlResponse","<div onclick=\\\"window.inqFrame.Application.sendVALinkClicked(event);\\\">Hi,I am virtual assistant</div>"))
                 .additionalProperties(true)
