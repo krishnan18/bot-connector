@@ -40,15 +40,10 @@ public class BotUtteranceController {
 
     private ChatResponse getFirstReply() {
         return ChatResponse.builder()
-                .replymessages(List.of(Message.builder()
+                .replymessages(List.of(/*Message.builder()
                         .type("Text")
                         .text("Hi,I am virtual assistant")
-                        .content(List.of(Content.builder()
-                                .contentType("Structured")
-                                .quickReply(QuickReply.builder()
-                                        .text("<div onclick=\\\"window.inqFrame.Application.sendVALinkClicked(event);\\\">Hi,I am virtual assistant</div>")
-                                        .build()).build()))
-                        .build(),Message.builder()
+                        .build(),*/Message.builder()
                         .type("Structured")
                         .text("Hi,I am virtual assistant")
                         .content(List.of(Content.builder()
