@@ -32,9 +32,11 @@ public class BotUtteranceController {
         if(chatMessage == null) {
             log.info("chat message null:");
             if(count.getCount() <= 1){
+                log.info("First reply");
                 return getFirstReply();
             }
             if(count.getCount() > 1){
+                log.info("Second reply");
                 return getSecondContentReply();
             }
             return getFirstReply();
