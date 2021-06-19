@@ -25,7 +25,7 @@ public class BotUtteranceController {
     private Count count;
     @PostMapping(path = "/postUtterance")
     public ChatResponse message(@RequestPart(value = "file", required = false) ChatMessage chatMessage) {
-        if(count.getCount() > 1) {
+        if(count.getCount() > 2) {
             count.setCount(0);
         }
         count.setCount(count.getCount()+1);
@@ -35,9 +35,13 @@ public class BotUtteranceController {
                 log.info("First reply");
                 return getFirstReply();
             }
-            if(count.getCount() > 1){
+            if(count.getCount() == 2){
                 log.info("Second reply");
                 return getSecondContentReply();
+            }
+            if(count.getCount() > 2){
+                log.info("Second reply");
+                return getEscalationReply();
             }
             return getFirstReply();
         }
@@ -79,6 +83,16 @@ public class BotUtteranceController {
                         .build()))
                 .intent(SUCCESS)
                 .botState(BotState.COMPLETE).build();
+    }
+
+    private ChatResponse getEscalationReply() {
+        return ChatResponse.builder()
+                .replymessages(List.of(Message.builder()
+                        .type("Text")
+                        .text("Connecting to an agent")
+                        .build()))
+                .intent(FALL_BACK)
+                .botState(BotState.FAILED).build();
     }
 
     private ChatResponse getSecondReply() {
