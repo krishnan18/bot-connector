@@ -8,5 +8,8 @@ import lombok.Data;
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class QuickReply {
+    private String id;
+    private String type;
     private String text;
+    private String action;
 }

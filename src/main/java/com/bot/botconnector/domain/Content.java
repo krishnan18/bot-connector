@@ -8,6 +8,8 @@ import lombok.Data;
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Content {
-    private String contentType;
-    private QuickReply quickReply;
+    private String id;
+    private String type;
+    private String text;
+    private String action;
 }

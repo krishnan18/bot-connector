@@ -12,6 +12,7 @@ import java.util.List;
 public class Message {
     private String type;
     private String text;
+    private String contentType;
     private List<Content> content;
 
 }
