@@ -62,7 +62,7 @@ public class BotUtteranceController {
         return ChatResponse.builder()
                 .replymessages(List.of(Message.builder()
                         .type("Text")
-                        .text("<div onclick=\\\"window.inqFrame.Application.sendVALinkClicked(event);\\\">Hi,I am virtual assistant</div>")
+                        .text("Hi,I am virtual assistant")
                         .build()))
                 .intent(SUCCESS)
                 .parameters(Map.of("htmlResponse","<div onclick=\\\"window.inqFrame.Application.sendVALinkClicked(event);\\\">Hi,I am virtual assistant</div>"))
