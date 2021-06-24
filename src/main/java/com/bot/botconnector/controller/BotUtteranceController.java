@@ -36,18 +36,22 @@ public class BotUtteranceController {
         if(chatMessage == null) {
             log.info("chat message null:");
             if(count.getCount() <= 1){
+                log.info("Welcome reply");
+                return getWelcomeReply();
+            }
+            if(count.getCount() == 2){
                 log.info("First reply");
                 return getFirstReply();
             }
-            if(count.getCount() == 2){
+            if(count.getCount() == 3){
                 log.info("Second reply");
                 return getSecondReply();
             }
-            if(count.getCount() == 3){
+            if(count.getCount() == 4){
                 log.info("Second reply");
                 return getThirdReply();
             }
-            if(count.getCount() > 3){
+            if(count.getCount() > 4){
                 log.info("Escalation reply");
                 return getEscalationReply();
             }
@@ -66,6 +70,16 @@ public class BotUtteranceController {
         return getFailedReply();
     }
 
+    private ChatResponse getWelcomeReply() {
+        return ChatResponse.builder()
+                .replymessages(List.of(Message.builder()
+                        .type("Text")
+                        .text("Hello, I am the Virtual Assistant of Rabobank. Ask your question in one sentence and I'll be happy to help you.")
+                        .build()))
+                .intent(SUCCESS)
+                .additionalProperties(true)
+                .botState(BotState.COMPLETE).build();
+    }
     private ChatResponse getFirstReply() {
         return ChatResponse.builder()
                 .replymessages(List.of(Message.builder()
