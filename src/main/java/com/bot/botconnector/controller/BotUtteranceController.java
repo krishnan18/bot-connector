@@ -29,7 +29,7 @@ public class BotUtteranceController {
     private Count count;
     @PostMapping(path = "/postUtterance")
     public ChatResponse message(@RequestPart(value = "file", required = false) ChatMessage chatMessage) {
-        if(count.getCount() > 3) {
+        if(count.getCount() > 4) {
             count.setCount(0);
         }
         count.setCount(count.getCount()+1);
