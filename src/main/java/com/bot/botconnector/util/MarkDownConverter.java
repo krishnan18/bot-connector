@@ -26,9 +26,9 @@ public class MarkDownConverter {
         html = html.replaceAll(BUTTON_LINK_PATTERN_1,"\n[pbl] $6 [/pbl] [link = \"$5\"]");
         html = html.replaceAll(BUTTON_LINK_PATTERN_2,"\n[pbl] $4 [/pbl] [link = \"$3\"]");
         html = html.replaceAll(SECONDARY_BUTTON_LINK_PATTERN,"\n[sbl] $6 [/sbl] [link = \"$5\"]");
-        html = html.replaceAll(ORDERED_LIST_PATTERN,"\n<ol>\n <li>$1</li>\n");
-        html = html.replaceAll(UNORDERED_LIST_PATTERN_1,"\n<ul>\n <li>$1</li>");
-        html = html.replaceAll(UNORDERED_LIST_PATTERN_2,"\n<ul>\n <li>$1</li>");
+        html = html.replaceAll(ORDERED_LIST_PATTERN,"\n<ol><li>$1</li>\n");
+        html = html.replaceAll(UNORDERED_LIST_PATTERN_1,"<ul><li>$1</li>");
+        html = html.replaceAll(UNORDERED_LIST_PATTERN_2,"<ul><li>$1</li>");
         html = html.replaceAll(ANCHOR_LINK_PATTERN_1,"\n[link] $7 [/link] [link = \"$2\"]");
         html = html.replaceAll(ANCHOR_LINK_PATTERN_2,"\n[link] $6 [/link] [link = \"$5\"]");
         html = html.replaceAll(UL_END_TAG_PATTERN,"\n</ul>");
@@ -39,6 +39,7 @@ public class MarkDownConverter {
         html = html.replaceAll("&#39;","'");
         html = html.replaceAll("<hr />I","\n<hr />\n");
         html = html.replaceAll("<br /><br />","\n<br /><br />\n");
+        html = html.replaceAll("<br />","\n<br />");
         html = html.replace("<div onclick=\"window.inqFrame.Application.sendVALinkClicked(event);\">","");
         html = html.replace("<div class=\"nw_options_end\"></div>","");
         html = html.replace("</div>","");
