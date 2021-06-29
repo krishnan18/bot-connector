@@ -38,7 +38,7 @@ public class MarkDownConverter {
         html = html.replaceAll("<ul>","\n<ul>");
         html = html.replaceAll("&#39;","'");
         html = html.replaceAll("<hr />I","\n<hr />\n");
-        html = html.replaceAll("<br /><br />","\n<br /><br />\n");
+        //html = html.replaceAll("<br /><br />","\n<br /><br />\n");
         html = html.replaceAll("<br />","\n<br />");
         html = html.replace("<div onclick=\"window.inqFrame.Application.sendVALinkClicked(event);\">","");
         html = html.replace("<div class=\"nw_options_end\"></div>","");
