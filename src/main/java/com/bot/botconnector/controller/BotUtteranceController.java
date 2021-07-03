@@ -10,6 +10,7 @@ import com.bot.botconnector.util.MarkDownConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,7 +29,8 @@ public class BotUtteranceController {
     @Autowired
     private Count count;
     @PostMapping(path = "/postUtterance")
-    public ChatResponse message(@RequestPart(value = "file", required = false) ChatMessage chatMessage) {
+    public ChatResponse message(@RequestBody ChatMessage chatMessage) {
+        log.info(" chat message "+chatMessage);
         if(count.getCount() > 4) {
             count.setCount(0);
         }
@@ -57,7 +59,6 @@ public class BotUtteranceController {
             }
             return getFirstReply();
         }
-        log.info("Post utterance with genesys-conversation-id:{},bot-session-id:{} :",chatMessage.getGenesysConversationId(),chatMessage.getBotSessionId());
         if("hi".equalsIgnoreCase(chatMessage.getInputMessage().getText())){
             return getFirstReply();
         }
