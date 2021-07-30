@@ -15,7 +15,7 @@ public class BotConnectorInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        var xAuthSecret = request.getHeader("x-auth");
+        var xAuthSecret = request.getHeader("xAuth");
         if(!"test".equals(xAuthSecret)) {
             log.error("invalid Token");
             throw new InvalidTokenException();
