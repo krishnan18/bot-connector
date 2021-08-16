@@ -23,9 +23,9 @@ public class MarkDownConverter {
             return null;
         html = html.replaceAll(OPTIONS_PATTERN,"\n[op] $6 [/op] [id = \"$5\"]");
         html = html.replaceAll(SECONDARY_BUTTON_OPTION_PATTERN,"\n[sop] $7 [/sop] [id = \"$6\"]");
+        html = html.replaceAll(SECONDARY_BUTTON_LINK_PATTERN,"\n[sbl] $6 [/sbl] [link = \"$5\"]");
         html = html.replaceAll(BUTTON_LINK_PATTERN_1,"\n[pbl] $6 [/pbl] [link = \"$5\"]");
         html = html.replaceAll(BUTTON_LINK_PATTERN_2,"\n[pbl] $4 [/pbl] [link = \"$3\"]");
-        html = html.replaceAll(SECONDARY_BUTTON_LINK_PATTERN,"\n[sbl] $6 [/sbl] [link = \"$5\"]");
         html = html.replaceAll(ORDERED_LIST_PATTERN,"\n<ol><li>$1</li>\n");
         html = html.replaceAll(UNORDERED_LIST_PATTERN_1,"<ul><li>$1</li>");
         html = html.replaceAll(UNORDERED_LIST_PATTERN_2,"<ul><li>$1</li>");
