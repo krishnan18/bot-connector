@@ -84,7 +84,7 @@ public class BotUtteranceController {
                         .build()))
                 .parameters(getBotSession(chatMessage))
                 .intent(SUCCESS)
-                .additionalProperties(true)
+                //.additionalProperties(true)
                 .botState(BotState.COMPLETE).build();
     }
 
