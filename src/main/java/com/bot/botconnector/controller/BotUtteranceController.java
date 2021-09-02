@@ -30,9 +30,10 @@ public class BotUtteranceController {
     private static final String orderedListWithLink = "<div onclick=\"window.inqFrame.Application.sendVALinkClicked(event);\">Zo installeer je Apple Pay op je iPhone:<br /><ol><li>Open de Rabo App<br />Chat je met je iPhone? <a href=\"https://bankieren.rabobank.nl/bankierenplus/deeplinking/apple-pay/start\" target=\"_blank\" data-vtz-browse=\"https://bankieren.rabobank.nl/bankierenplus/deeplinking/apple-pay/start\" data-vtz-link-type=\"Web\" rel=\"noopener noreferrer\">Log hier in</a></li><li>Ga naar &#39;Service&#39; en kies &#39;Apple Pay&#39;</li><li>Selecteer je betaalpas of creditcard</li><li>Kies &#39;Zet je betaalpas in de Apple Wallet&#39; of &#39;Zet je creditcard in de Apple Wallet&#39;</li><li>Lees en accepteer de voorwaarden en bevestig</li></ol>Gelukt? Dan kun je nu betalen met Apple Pay. <hr />Heb je meerdere passen of cards? Herhaal deze stappen dan. Je kunt trouwens ook <a href=\"https://www.rabobank.nl/particulieren/betalen/service/betalen-en-opnemen/aan-de-slag-met-apple-pay#applewatch\" target=\"_blank\" data-vtz-browse=\"https://www.rabobank.nl/particulieren/betalen/service/betalen-en-opnemen/aan-de-slag-met-apple-pay#applewatch\" data-vtz-link-type=\"Web\" rel=\"noopener noreferrer\">met je Apple Watch betalen</a>.<br /><blockquote style=\"margin: 0 0 0 40px; border: none; padding: 0px;\"><button><a href=\"#\" data-vtz-link-type=\"Dialog\" data-vtz-jump=\"9ade5d31-16d5-480f-b832-8670ee193d51\">Installeren lukt niet</a></button></blockquote> \n<hr />Heb je zo een antwoord op je vraag? <ul><li><a href=\"#\" data-vtz-link-type=\"Dialog\" data-vtz-jump=\"83c547b6-f2ac-4af9-b2e3-552a8e5deb0c\">Ja</a></li><li><a href=\"#\" data-vtz-link-type=\"Dialog\" data-vtz-jump=\"295a9f46-6316-4d13-97df-e42a24534366\">Nee</a></li></ul> <div class=\"nw_options_end\"></div></div>";
     private static final String textWithLink = "<div onclick=\"window.inqFrame.Application.sendVALinkClicked(event);\">Dat klinkt alsof je iets wilt weten over onze <a href=\"https://www.rabobank.nl/bedrijven/\" target=\"_blank\" data-vtz-browse=\"https://www.rabobank.nl/bedrijven/\" data-vtz-link-type=\"Web\" rel=\"noopener noreferrer\">zakelijke producten of adviezen</a>. <hr />Waar gaat je vraag over? <ul><li><a href=\"#\" data-vtz-link-type=\"Dialog\" data-vtz-jump=\"fb56e6ba-4d31-4494-b173-67bae7856682\">Financiering of lease</a></li><li><a href=\"#\" data-vtz-link-type=\"Dialog\" data-vtz-jump=\"ab0dee97-8063-4e5f-9c9f-f343bd780cc7\">Andere vraag</a></li></ul> <div class=\"nw_options_end\"></div></div>";
     private static final String secondaryButton = "<div onclick=\"window.inqFrame.Application.sendVALinkClicked(event);\">Vanaf 6 september kunnen clubs en verenigingen zich aanmelden voor Rabo ClubSupport. De clubs die mee kunnen doen, ontvangen vanzelf een uitnodiging.<br /><br />De stembussen gaan op 4 oktober open voor alle Rabobank-leden.<br /><button><a href=\"https://www.rabobank.nl/particulieren/leden/clubsupport/\" target=\"_blank\" data-vtz-browse=\"https://www.rabobank.nl/particulieren/leden/clubsupport/\" data-vtz-link-type=\"Web\" rel=\"noopener noreferrer\">Meer over ClubSupport</a></button><blockquote style=\"margin: 0 0 0 40px; border: none; padding: 0px;\"><button><a href=\"https://bankieren.rabobank.nl/bankierenplus/deeplinking/membership-subscription/start\" target=\"_blank\" data-vtz-browse=\"https://bankieren.rabobank.nl/bankierenplus/deeplinking/membership-subscription/start\" data-vtz-link-type=\"Web\" rel=\"noopener noreferrer\">Word Lid</a></button></blockquote> \n<hr />Heb je zo een antwoord op je vraag? <ul><li><a href=\"#\" data-vtz-link-type=\"Dialog\" data-vtz-jump=\"83c547b6-f2ac-4af9-b2e3-552a8e5deb0c\">Ja</a></li><li><a href=\"#\" data-vtz-link-type=\"Dialog\" data-vtz-jump=\"295a9f46-6316-4d13-97df-e42a24534366\">Nee</a></li></ul> <div class=\"nw_options_end\"></div></div>";
-    private static final String ENGAGEMENT_ID = "engagementId";
-    private static final String CUSTOMER_ID = "customerId";
-
+    private static final String ENGAGEMENT_ID = "engagement_id";
+    private static final String CUSTOMER_ID = "customer_id";
+    private static final String INTENT = "intent";
+    private static final String INTENT_LEVEL = "intentLevel";
     @Autowired
     private Count count;
 
@@ -47,6 +48,10 @@ public class BotUtteranceController {
         }
         if("secondary button".equalsIgnoreCase(chatMessage.getInputMessage().getText())) {
             return getSecondaryButtonReply(chatMessage);
+        }
+        if("agent".equalsIgnoreCase(chatMessage.getInputMessage().getText())) {
+            log.info("Escalation reply");
+            return getEscalationReply(chatMessage);
         }
         if (count.getCount() > 4) {
             count.setCount(0);
@@ -204,8 +209,13 @@ public class BotUtteranceController {
                     .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
         }
         if (botSessionMap.isEmpty()) {
-            botSessionMap = Map.of(ENGAGEMENT_ID, getUUID(), CUSTOMER_ID, getUUID());
+            botSessionMap = Map.of("engagementId", getUUID(), "customerId", getUUID());
         }
         return botSessionMap;
+    }
+
+    private Map<String, String> getIntentDetails() {
+        Map<String, String> intentDetailsMap = Map.of(INTENT, "", INTENT_LEVEL, "");
+        return intentDetailsMap;
     }
 }
