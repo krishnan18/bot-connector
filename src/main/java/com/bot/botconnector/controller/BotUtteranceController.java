@@ -85,7 +85,7 @@ public class BotUtteranceController {
         return ChatResponse.builder()
                 .replymessages(List.of(Message.builder()
                         .type("Text")
-                        .text("Hello, I am the Virtual Assistant of Rabobank. Ask your question in one sentence and I'll be happy to help you.")
+                        .text("Hey! Can I help you with something?")
                         .build()))
                 .parameters(getBotSession(chatMessage))
                 .intent(SUCCESS)
