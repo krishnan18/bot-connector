@@ -53,6 +53,10 @@ public class BotUtteranceController {
             log.info("Escalation reply");
             return getEscalationReply(chatMessage);
         }
+        if("option".equalsIgnoreCase(chatMessage.getInputMessage().getText())) {
+            log.info("option reply");
+            return getFirstReply(chatMessage);
+        }
         if (count.getCount() > 4) {
             count.setCount(0);
         }
