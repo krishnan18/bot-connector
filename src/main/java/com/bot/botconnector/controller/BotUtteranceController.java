@@ -40,6 +40,7 @@ public class BotUtteranceController {
     @PostMapping(path = "/postUtterance")
     public ChatResponse message(@RequestBody ChatMessage chatMessage) {
         log.info(" chat message " + chatMessage);
+        log.info(" parameters -  " + chatMessage.getParameters().keySet());
         if("ordered list".equalsIgnoreCase(chatMessage.getInputMessage().getText())) {
             return getOrderedListReply(chatMessage);
         }
