@@ -131,12 +131,15 @@ public class BotUtteranceController {
     }
 
     private ChatResponse getEscalationReply(ChatMessage chatMessage) {
+        Map<String,String> session = getBotSession(chatMessage);
+        session.put("intent","Business|Betalen|Betaalpas en Creditcard|Pas Algemeen");
+        session.put("intentLevel","4");
         return ChatResponse.builder()
                 .replymessages(List.of(Message.builder()
                         .type("Text")
                         .text("Connecting to an agent")
                         .build()))
-                .parameters(getBotSession(chatMessage))
+                .parameters(session)
                 .intent(FALL_BACK)
                 .botState(BotState.FAILED).build();
     }
