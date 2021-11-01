@@ -8,6 +8,7 @@ import com.bot.botconnector.domain.Count;
 import com.bot.botconnector.domain.Message;
 import com.bot.botconnector.util.MarkDownConverter;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -210,11 +212,11 @@ public class BotUtteranceController {
 
     private Map<String, String> getBotSession(ChatMessage chatMessage) {
         Map<String, String> botSessionMap = new HashMap<>();
-        if (chatMessage.getParameters() != null) {
-            botSessionMap = chatMessage.getParameters().entrySet().stream()
-                    .filter(k -> ENGAGEMENT_ID.equalsIgnoreCase(k.getKey())
-                            || CUSTOMER_ID.equalsIgnoreCase(k.getKey()))
-                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        Map<String, String> parameters = chatMessage.getParameters();
+        if (parameters != null && StringUtils.isNotEmpty(parameters.get(ENGAGEMENT_ID))
+                && StringUtils.isNotEmpty(parameters.get(CUSTOMER_ID))) {
+            botSessionMap.put("engagementId",parameters.get(ENGAGEMENT_ID));
+            botSessionMap.put("customerId",parameters.get(CUSTOMER_ID));
         }
         if (botSessionMap.isEmpty()) {
             botSessionMap = Map.of("engagementId", getUUID(), "customerId", getUUID());
