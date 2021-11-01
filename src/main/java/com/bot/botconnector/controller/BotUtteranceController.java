@@ -219,7 +219,9 @@ public class BotUtteranceController {
             botSessionMap.put("customerId",parameters.get(CUSTOMER_ID));
         }
         if (botSessionMap.isEmpty()) {
-            botSessionMap = Map.of("engagementId", getUUID(), "customerId", getUUID());
+            botSessionMap.put("engagementId", getUUID());
+            botSessionMap.put("customerId", getUUID());
+            //botSessionMap = Map.of("engagementId", getUUID(), "customerId", getUUID());
         }
         return botSessionMap;
     }
