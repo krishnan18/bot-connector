@@ -60,6 +60,10 @@ public class BotUtteranceController {
             log.info("option reply");
             return getFirstReply(chatMessage);
         }
+        if("hi".equalsIgnoreCase(chatMessage.getInputMessage().getText())) {
+            log.info("option reply");
+            return getWelcomeReply(chatMessage);
+        }
         if (count.getCount() > 4) {
             count.setCount(0);
         }
@@ -89,12 +93,15 @@ public class BotUtteranceController {
     }
 
     private ChatResponse getWelcomeReply(ChatMessage chatMessage) {
+        Map<String,String> session = getBotSession(chatMessage);
+        session.put("intent","Business|Betalen|Betaalpas en Creditcard|Pas Algemeen");
+        session.put("intentLevel","4");
         return ChatResponse.builder()
                 .replymessages(List.of(Message.builder()
                         .type("Text")
                         .text("Hey! Can I help you with something?")
                         .build()))
-                .parameters(getBotSession(chatMessage))
+                .parameters(session)
                 .intent(SUCCESS)
                 //.additionalProperties(true)
                 .botState(BotState.COMPLETE).build();
