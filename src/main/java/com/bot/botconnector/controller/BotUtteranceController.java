@@ -150,7 +150,7 @@ public class BotUtteranceController {
                         .build()))
                 .parameters(session)
                 .intent(FALL_BACK)
-                .botState(BotState.FAILED).build();
+                .botState(BotState.COMPLETE).build();
     }
 
     private ChatResponse getSecondaryButtonReply(ChatMessage chatMessage) {
