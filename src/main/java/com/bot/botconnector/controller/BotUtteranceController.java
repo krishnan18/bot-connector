@@ -138,7 +138,7 @@ public class BotUtteranceController {
     }
 
     private ChatResponse getEscalationReply(ChatMessage chatMessage) {
-inte        Map<String,String> session = new HashMap<>();
+        Map<String,String> session = new HashMap<>();
         session.put("intent","Business|Betalen|Betaalpas en Creditcard|Pas Algemeen");
         session.put("intentLevel","4");
         return ChatResponse.builder()
